@@ -1,0 +1,128 @@
+\hypertarget{class_basic__block}{\section{Basic\-\_\-block Class Reference}
+\label{class_basic__block}\index{Basic\-\_\-block@{Basic\-\_\-block}}
+}
+
+
+class representing a \hyperlink{class_basic__block}{Basic\-\_\-block} of a fonction  
+
+
+
+
+{\ttfamily \#include $<$Basic\-\_\-block.\-h$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{class_basic__block_aa2455e1b1b8f5ac9b1c128f121fe3d67}{\hyperlink{class_basic__block_aa2455e1b1b8f5ac9b1c128f121fe3d67}{Basic\-\_\-block} ()}\label{class_basic__block_aa2455e1b1b8f5ac9b1c128f121fe3d67}
+
+\begin{DoxyCompactList}\small\item\em Constructor of a Basic Block. \end{DoxyCompactList}\item 
+\hypertarget{class_basic__block_a0047b58d9a30fa6eb79a87c70e9176d0}{\hyperlink{class_basic__block_a0047b58d9a30fa6eb79a87c70e9176d0}{$\sim$\-Basic\-\_\-block} ()}\label{class_basic__block_a0047b58d9a30fa6eb79a87c70e9176d0}
+
+\begin{DoxyCompactList}\small\item\em Destructor of a basic block. \end{DoxyCompactList}\item 
+\hypertarget{class_basic__block_a1fa279bf9b2750ba0042b1fe87e5c343}{void \hyperlink{class_basic__block_a1fa279bf9b2750ba0042b1fe87e5c343}{set\-\_\-head} (\hyperlink{class_node}{Node} $\ast$)}\label{class_basic__block_a1fa279bf9b2750ba0042b1fe87e5c343}
+
+\begin{DoxyCompactList}\small\item\em setter of the head of the basic block \end{DoxyCompactList}\item 
+\hypertarget{class_basic__block_aebf407fc956b148ef145b0a6233d0361}{void \hyperlink{class_basic__block_aebf407fc956b148ef145b0a6233d0361}{set\-\_\-end} (\hyperlink{class_node}{Node} $\ast$)}\label{class_basic__block_aebf407fc956b148ef145b0a6233d0361}
+
+\begin{DoxyCompactList}\small\item\em setter of the end of the basic block \end{DoxyCompactList}\item 
+\hypertarget{class_basic__block_ac317495c3e84de7431562490dcedff9e}{\hyperlink{class_node}{Node} $\ast$ \hyperlink{class_basic__block_ac317495c3e84de7431562490dcedff9e}{get\-\_\-head} ()}\label{class_basic__block_ac317495c3e84de7431562490dcedff9e}
+
+\begin{DoxyCompactList}\small\item\em get the head of the basic block \end{DoxyCompactList}\item 
+\hypertarget{class_basic__block_ae914e0179d58835b213bad613bfbaf40}{\hyperlink{class_node}{Node} $\ast$ \hyperlink{class_basic__block_ae914e0179d58835b213bad613bfbaf40}{get\-\_\-end} ()}\label{class_basic__block_ae914e0179d58835b213bad613bfbaf40}
+
+\begin{DoxyCompactList}\small\item\em get the end of the basic block \end{DoxyCompactList}\item 
+\hypertarget{class_basic__block_a4930bdd8a990cfb2d10f39087306a75e}{void \hyperlink{class_basic__block_a4930bdd8a990cfb2d10f39087306a75e}{set\-\_\-branch} (\hyperlink{class_node}{Node} $\ast$)}\label{class_basic__block_a4930bdd8a990cfb2d10f39087306a75e}
+
+\begin{DoxyCompactList}\small\item\em setter of \hyperlink{class_node}{Node} corresponding to the branch \end{DoxyCompactList}\item 
+\hypertarget{class_basic__block_a5015a11dd64de82b6480a86ded7d720b}{\hyperlink{class_node}{Node} $\ast$ \hyperlink{class_basic__block_a5015a11dd64de82b6480a86ded7d720b}{get\-\_\-branch} ()}\label{class_basic__block_a5015a11dd64de82b6480a86ded7d720b}
+
+\begin{DoxyCompactList}\small\item\em get the \hyperlink{class_node}{Node} corresponding to the branch \end{DoxyCompactList}\item 
+\hypertarget{class_basic__block_a94840ac976b27d9024f4c04efb276ac1}{bool \hyperlink{class_basic__block_a94840ac976b27d9024f4c04efb276ac1}{is\-\_\-labeled} ()}\label{class_basic__block_a94840ac976b27d9024f4c04efb276ac1}
+
+\begin{DoxyCompactList}\small\item\em Return true if the first line of the block is a label. \end{DoxyCompactList}\item 
+\hypertarget{class_basic__block_a5bdba6b1e3307dc03c38b8249c4b3fa8}{void \hyperlink{class_basic__block_a5bdba6b1e3307dc03c38b8249c4b3fa8}{set\-\_\-index} (int i)}\label{class_basic__block_a5bdba6b1e3307dc03c38b8249c4b3fa8}
+
+\begin{DoxyCompactList}\small\item\em set the index of the basic block \end{DoxyCompactList}\item 
+\hypertarget{class_basic__block_a8cb196904537be8fb0474afce7c769c1}{int \hyperlink{class_basic__block_a8cb196904537be8fb0474afce7c769c1}{get\-\_\-index} ()}\label{class_basic__block_a8cb196904537be8fb0474afce7c769c1}
+
+\begin{DoxyCompactList}\small\item\em get the index of the basic block \end{DoxyCompactList}\item 
+\hypertarget{class_basic__block_a5574d52e3ecdbf36e52c42c31bfc73db}{int \hyperlink{class_basic__block_a5574d52e3ecdbf36e52c42c31bfc73db}{size} ()}\label{class_basic__block_a5574d52e3ecdbf36e52c42c31bfc73db}
+
+\begin{DoxyCompactList}\small\item\em returns the size (in nodes) of the basic block \end{DoxyCompactList}\item 
+\hypertarget{class_basic__block_a3ccc47a22b9d5d9e932862ab37783225}{int \hyperlink{class_basic__block_a3ccc47a22b9d5d9e932862ab37783225}{get\-\_\-nb\-\_\-succ} ()}\label{class_basic__block_a3ccc47a22b9d5d9e932862ab37783225}
+
+\begin{DoxyCompactList}\small\item\em returns/gets the number of successors of the basic block \end{DoxyCompactList}\item 
+\hypertarget{class_basic__block_ade6f71459e5b54108022a16a4a6a00cb}{int \hyperlink{class_basic__block_ade6f71459e5b54108022a16a4a6a00cb}{get\-\_\-nb\-\_\-pred} ()}\label{class_basic__block_ade6f71459e5b54108022a16a4a6a00cb}
+
+\begin{DoxyCompactList}\small\item\em returns/gets the number of predecessors of the basic block \end{DoxyCompactList}\item 
+\hypertarget{class_basic__block_ab89b4c97465f5a0639475b38baeb51be}{void \hyperlink{class_basic__block_ab89b4c97465f5a0639475b38baeb51be}{set\-\_\-successor1} (\hyperlink{class_basic__block}{Basic\-\_\-block} $\ast$B\-B)}\label{class_basic__block_ab89b4c97465f5a0639475b38baeb51be}
+
+\begin{DoxyCompactList}\small\item\em setter of the successor of the basic block \end{DoxyCompactList}\item 
+\hypertarget{class_basic__block_afca1384c12958bec36f18804117ae62d}{\hyperlink{class_basic__block}{Basic\-\_\-block} $\ast$ \hyperlink{class_basic__block_afca1384c12958bec36f18804117ae62d}{get\-\_\-successor1} ()}\label{class_basic__block_afca1384c12958bec36f18804117ae62d}
+
+\begin{DoxyCompactList}\small\item\em get the successor of the basic block \end{DoxyCompactList}\item 
+\hypertarget{class_basic__block_a02ca8c17fabe18c87c69d042de00ba83}{void \hyperlink{class_basic__block_a02ca8c17fabe18c87c69d042de00ba83}{set\-\_\-successor2} (\hyperlink{class_basic__block}{Basic\-\_\-block} $\ast$B\-B)}\label{class_basic__block_a02ca8c17fabe18c87c69d042de00ba83}
+
+\begin{DoxyCompactList}\small\item\em setter of the successor of the basic block \end{DoxyCompactList}\item 
+\hypertarget{class_basic__block_a58895a0fdcbda1cd3a961884bc165b6b}{\hyperlink{class_basic__block}{Basic\-\_\-block} $\ast$ \hyperlink{class_basic__block_a58895a0fdcbda1cd3a961884bc165b6b}{get\-\_\-successor2} ()}\label{class_basic__block_a58895a0fdcbda1cd3a961884bc165b6b}
+
+\begin{DoxyCompactList}\small\item\em get the successor of the basic block \end{DoxyCompactList}\item 
+\hypertarget{class_basic__block_a9ca33ccefa6395a6b0b876af20a57eaa}{void \hyperlink{class_basic__block_a9ca33ccefa6395a6b0b876af20a57eaa}{set\-\_\-predecessor} (\hyperlink{class_basic__block}{Basic\-\_\-block} $\ast$B\-B)}\label{class_basic__block_a9ca33ccefa6395a6b0b876af20a57eaa}
+
+\begin{DoxyCompactList}\small\item\em setter of the predecessor of the basic block \end{DoxyCompactList}\item 
+\hypertarget{class_basic__block_a5381da0d3cfdae07df433ffac3e8ebae}{\hyperlink{class_basic__block}{Basic\-\_\-block} $\ast$ \hyperlink{class_basic__block_a5381da0d3cfdae07df433ffac3e8ebae}{get\-\_\-predecessor} (int)}\label{class_basic__block_a5381da0d3cfdae07df433ffac3e8ebae}
+
+\begin{DoxyCompactList}\small\item\em get the ith predecessor of the basic block \end{DoxyCompactList}\item 
+\hypertarget{class_basic__block_ad3d770c77ba92d455fa3430df5f16eff}{int \hyperlink{class_basic__block_ad3d770c77ba92d455fa3430df5f16eff}{get\-\_\-nb\-\_\-inst} ()}\label{class_basic__block_ad3d770c77ba92d455fa3430df5f16eff}
+
+\begin{DoxyCompactList}\small\item\em returns the number of instructions \end{DoxyCompactList}\item 
+\hypertarget{class_basic__block_afafa2ede7f9146fba4020c7764b8ecca}{\hyperlink{class_node}{Node} $\ast$ {\bfseries get\-\_\-first\-\_\-node\-\_\-instruction} ()}\label{class_basic__block_afafa2ede7f9146fba4020c7764b8ecca}
+
+\item 
+\hypertarget{class_basic__block_ae6bb481bd9c6352a9f3d7bc5bb2680ac}{\hyperlink{class_instruction}{Instruction} $\ast$ \hyperlink{class_basic__block_ae6bb481bd9c6352a9f3d7bc5bb2680ac}{get\-\_\-first\-\_\-instruction} ()}\label{class_basic__block_ae6bb481bd9c6352a9f3d7bc5bb2680ac}
+
+\begin{DoxyCompactList}\small\item\em return the first instruction of the basic block, N\-U\-L\-L if any \end{DoxyCompactList}\item 
+\hypertarget{class_basic__block_a7083c8485a2378cdfae477a8466eb348}{\hyperlink{class_instruction}{Instruction} $\ast$ {\bfseries get\-\_\-last\-\_\-instruction} ()}\label{class_basic__block_a7083c8485a2378cdfae477a8466eb348}
+
+\item 
+\hypertarget{class_basic__block_a84aa42e38e2494c2f8ab0a159dba3ca8}{\hyperlink{class_instruction}{Instruction} $\ast$ \hyperlink{class_basic__block_a84aa42e38e2494c2f8ab0a159dba3ca8}{get\-\_\-instruction\-\_\-at\-\_\-index} (int)}\label{class_basic__block_a84aa42e38e2494c2f8ab0a159dba3ca8}
+
+\begin{DoxyCompactList}\small\item\em returns the instruction at the given index, N\-U\-L\-L if any \end{DoxyCompactList}\item 
+\hypertarget{class_basic__block_ae53d18eb1436d162ee9ae565c46b35e5}{void \hyperlink{class_basic__block_ae53d18eb1436d162ee9ae565c46b35e5}{link\-\_\-instructions} ()}\label{class_basic__block_ae53d18eb1436d162ee9ae565c46b35e5}
+
+\begin{DoxyCompactList}\small\item\em link instructions in the order they appear in the code \end{DoxyCompactList}\item 
+\hypertarget{class_basic__block_a2f2cdedde41f78b7982e6d6d348524c2}{void \hyperlink{class_basic__block_a2f2cdedde41f78b7982e6d6d348524c2}{comput\-\_\-pred\-\_\-succ\-\_\-dep} ()}\label{class_basic__block_a2f2cdedde41f78b7982e6d6d348524c2}
+
+\begin{DoxyCompactList}\small\item\em computes dependances predecessors and successors of each instructions in the B\-B \end{DoxyCompactList}\item 
+\hypertarget{class_basic__block_aad79779b098ba4ccd1549a8dbbd80d7d}{void \hyperlink{class_basic__block_aad79779b098ba4ccd1549a8dbbd80d7d}{display} ()}\label{class_basic__block_aad79779b098ba4ccd1549a8dbbd80d7d}
+
+\begin{DoxyCompactList}\small\item\em to display the basic block \end{DoxyCompactList}\item 
+\hypertarget{class_basic__block_af74c4eeeecfb7a3f3fddbeb2994523a4}{void \hyperlink{class_basic__block_af74c4eeeecfb7a3f3fddbeb2994523a4}{restitution} (string const)}\label{class_basic__block_af74c4eeeecfb7a3f3fddbeb2994523a4}
+
+\begin{DoxyCompactList}\small\item\em restitutes the basic block in a file \end{DoxyCompactList}\item 
+\hypertarget{class_basic__block_acb9b80088751bcf4329b3d1532f724ac}{void \hyperlink{class_basic__block_acb9b80088751bcf4329b3d1532f724ac}{set\-\_\-link\-\_\-succ\-\_\-pred} (\hyperlink{class_basic__block}{Basic\-\_\-block} $\ast$)}\label{class_basic__block_acb9b80088751bcf4329b3d1532f724ac}
+
+\begin{DoxyCompactList}\small\item\em sets the parameter as successor and this as predecessor of the parameter \end{DoxyCompactList}\item 
+\hypertarget{class_basic__block_ad156275e42428ee703ffa0aa3e8b5bb0}{bool \hyperlink{class_basic__block_ad156275e42428ee703ffa0aa3e8b5bb0}{is\-\_\-delayed\-\_\-slot} (\hyperlink{class_instruction}{Instruction} $\ast$)}\label{class_basic__block_ad156275e42428ee703ffa0aa3e8b5bb0}
+
+\begin{DoxyCompactList}\small\item\em tests if the instruction is in the delayed slots of the branch terminating the B\-B if any \end{DoxyCompactList}\item 
+\hypertarget{class_basic__block_a0a9caa9a904adc7807e390308e7b939c}{int \hyperlink{class_basic__block_a0a9caa9a904adc7807e390308e7b939c}{nb\-\_\-cycles} ()}\label{class_basic__block_a0a9caa9a904adc7807e390308e7b939c}
+
+\begin{DoxyCompactList}\small\item\em gives the number of cycles to execute all instruction in this \end{DoxyCompactList}\item 
+\hypertarget{class_basic__block_a0f26ff105216c62082905097b5dcebd3}{void \hyperlink{class_basic__block_a0f26ff105216c62082905097b5dcebd3}{test} ()}\label{class_basic__block_a0f26ff105216c62082905097b5dcebd3}
+
+\begin{DoxyCompactList}\small\item\em this method is to be used to test other methods \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{class_basic__block_aef985f2438261d429f81c7b5d4de5f16}{static void {\bfseries show\-\_\-dependances} (\hyperlink{class_instruction}{Instruction} $\ast$, \hyperlink{class_instruction}{Instruction} $\ast$)}\label{class_basic__block_aef985f2438261d429f81c7b5d4de5f16}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+class representing a \hyperlink{class_basic__block}{Basic\-\_\-block} of a fonction 
+
+The documentation for this class was generated from the following file\-:\begin{DoxyCompactItemize}
+\item 
+\hyperlink{_basic__block_8h}{Basic\-\_\-block.\-h}\end{DoxyCompactItemize}
