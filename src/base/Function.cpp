@@ -185,8 +185,8 @@ void Function::add_BB(Node *debut, Node* fin, int index){
 
 void Function::comput_basic_block(){
    Node *debut, *current, *prev;
-   current=_head;
-   debut=_head;
+   current=_head->get_next()->get_next();
+   debut= NULL;
    prev = NULL;
    int ind=0;
    Line *l=NULL;
@@ -195,13 +195,30 @@ void Function::comput_basic_block(){
    cout<< "comput BB" <<endl;
    cout<<"head :"<<_head->get_lineContent()<<endl;
    cout<<"tail :"<<_end->get_lineContent()<<endl;
-   //boucle
-    //caste
-    cout<<"-- Bloc numero:"<<ind<<endl;
-    cout<<"-- head :"<< debut->get_format()<<endl;
-    
-   //end
-   cout<<"end comput BB"<<endl;
+   
+   while(current != NULL && current!=_end){
+      if((current->get_line()->isInst())||(current->get_line()->isLabel())){
+        if(debut == NULL){
+          debut = current;
+        }else if (current->get_line()->get_content()=="add $0,$0,$0"){
+          cout<<"-- Bloc numero:"<<ind<<endl;
+          cout<<"-- head :"<< debut->get_lineContent()<<endl;
+          cout<<"-- end :"<<current->get_lineContent()<<endl;
+          add_BB(debut,current,ind);
+          ind++;
+          debut = NULL;
+       }else if(current->get_next()->get_line()->isLabel()){
+          cout<<"-- Bloc numero:"<<ind<<endl;
+          cout<<"-- head :"<< debut->get_lineContent()<<endl;
+          cout<<"-- end :"<<current->get_lineContent()<<endl;
+          add_BB(debut,current,ind);
+          ind++;
+          debut = current->get_next();
+        }
+      }
+    current = current->get_next();
+  }
+  cout<<"end comput BB"<<endl;
 }
 
 int Function::nbr_BB(){
