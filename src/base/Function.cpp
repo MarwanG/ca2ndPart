@@ -269,20 +269,36 @@ void Function::comput_succ_pred_BB(){
    it=_myBB.begin();   //1er BB
    //remarque : le dernier block n'a pas de successeurs
   
-  current = get_firstBB();
 
-  while(current != NULL){
+   
+
+  for(nbi = 0; nbi < nbr_BB(); nbi++){
+    current = get_BB(nbi);
     instr = current->get_last_instruction();
-    if(instr->get_line()->get_content()=="add $0,$0,$0"){  //ilya un jump
+    if(instr->get_content()=="add $0,$0,$0"){  //ilya un jump
       instr = instr->get_prev();
-      if(instr->get_line()->get_content().at(0)=='j'){
+      if(instr->get_content().at(0)=='j'){    //check if we use jr .. etc
+        string label = instr->get_op1()->to_string();
+        Basic_block * suc  = find_label_BB(new OPLabel(label));
+        current->set_successor1(suc);
+      }else{
         int nb = instr->get_nbOp();
-        
+        if(nb == 2){
+          string label = instr->get_op2()->to_string();
+          Basic_block * suc  = find_label_BB(new OPLabel(label));
+          current->set_link_succ_pred(suc);           
+        }else{
+          string label = instr->get_op3()->to_string();  //egal a 3.
+          Basic_block * suc  = find_label_BB(new OPLabel(label));
+          current->set_link_succ_pred(suc);          
+        }
+        current->set_link_succ_pred(get_BB(nbi+1));          
       }
     }else{
-      current->set_successor1(current->get_next());
+        current->set_link_succ_pred(get_BB(nbi+1));
     }    
   }
+
 
 
    //A REMPLIR

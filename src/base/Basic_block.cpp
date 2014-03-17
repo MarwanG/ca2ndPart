@@ -349,9 +349,9 @@ int Basic_block::nb_cycles(){
 /* permet de tester des choses sur un bloc de base, par exemple permet d'afficher les BB successeurs et prédécesseurs (commentaire),  là ne fait rien qu'afficher le BB */
 void Basic_block::test(){
    cout << "test du BB " << get_index() << endl;
-   display();
+   //display();
 
-   /*
+   
    cout << "nb de successeur : " << get_nb_succ() << endl;
    int nbsucc = get_nb_succ() ;
    if (nbsucc >= 1 && get_successor1())
@@ -366,6 +366,6 @@ void Basic_block::test(){
 	 cout << "pred "<< i <<  " : " << get_predecessor(i)-> get_index() << "; ";
    }
 
-   */
+   
    cout << endl;
 }
