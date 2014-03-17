@@ -268,7 +268,21 @@ void Function::comput_succ_pred_BB(){
    int size= (int) _myBB.size(); // nombre de BB
    it=_myBB.begin();   //1er BB
    //remarque : le dernier block n'a pas de successeurs
- 
+  
+  current = get_firstBB();
+
+  while(current != NULL){
+    instr = current->get_last_instruction();
+    if(instr->get_line()->get_content()=="add $0,$0,$0"){  //ilya un jump
+      instr = instr->get_prev();
+      if(instr->get_line()->get_content().at(0)=='j'){
+        int nb = instr->get_nbOp();
+        
+      }
+    }else{
+      current->set_successor1(current->get_next());
+    }    
+  }
 
 
    //A REMPLIR
