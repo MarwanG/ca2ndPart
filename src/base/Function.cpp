@@ -205,6 +205,7 @@ void Function::comput_basic_block(){
           cout<<"-- head :"<< debut->get_lineContent()<<endl;
           cout<<"-- end :"<<current->get_lineContent()<<endl;
           add_BB(debut,current,ind);
+          get_BB(nbr_BB()-1)->set_branch(prev);
           ind++;
           debut = NULL;
        }else if(current->get_next()->get_line()->isLabel()){
@@ -216,6 +217,7 @@ void Function::comput_basic_block(){
           debut = current->get_next();
         }
       }
+    prev = current;
     current = current->get_next();
   }
   cout<<"end comput BB"<<endl;
