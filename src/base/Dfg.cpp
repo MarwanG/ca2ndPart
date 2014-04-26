@@ -102,13 +102,49 @@ Dfg::Dfg(Basic_block *bb){
 }
 
 
+list<Node_dfg*> Dfg::get_inverse_topologic_order() {
+  list<Node_dfg*> l, r;//r = liste résultat
+  list<Node_dfg*>::iterator it;
 
-// methode auxiliaire pour la construction du Dfg, pas forcément utile, dépend de comment vous envisagez de faire...
-void Dfg::build_dfg(Node_dfg*,bool) {
+  for(it=list_node_dfg.begin();it!=list_node_dfg.end();it++) {
+    if((*it)->get_nb_arcs() == 0){
+      r.push_back(*it);
+      l.push_back(*it);
+      _read[(*it)->get_instruction()->get_index()] = 1;
+    } else {
+      _read[(*it)->get_instruction()->get_index()] = 0;
+    }
+  }
 
-  // A REMPLIR OU NON !
- return;
+  while(!l.empty()){
+    Node_dfg* candidat = l.front();
+    l.pop_front();
+    bool succ_treated = true;
+    list<Arc_t*>::iterator it_succ;
+    for(it_succ=candidat->arcs_begin();it_succ!=candidat->arcs_end();it_succ++){
+      succ_treated &= (_read[(*it_succ)->next->get_instruction()->get_index()]==1);
+      if(!succ_treated){
+   l.push_front(candidat);
+   l.push_front((*it_succ)->next);
+   break;
+      }
+    }
+    if(succ_treated){
+      if( _read[candidat->get_instruction()->get_index()]!=1){
+   r.push_back(candidat);
+   _read[candidat->get_instruction()->get_index()]=1;
+      }
+      list<Node_dfg*>::iterator preds;
+      for(preds=candidat->pred_begin();preds!=candidat->pred_end();preds++)
+   if(_read[(*preds)->get_instruction()->get_index()]==0)
+     l.push_back(*preds);
+    }
+  }
+
+  return r;
 }
+
+
 
 Dfg::~Dfg(){}
 
@@ -251,6 +287,24 @@ bool contains(list<Node_dfg*>* l, Node_dfg* n){
 
 //A FAIRE
 void Dfg::comput_critical_path(){
+   list<Node_dfg*>::iterator listNode;
+   list<Node_dfg*> list_node_ordered = get_inverse_topologic_order();
+
+
+   for(listNode=list_node_dfg.begin();listNode!=list_node_dfg.end();listNode++)
+    (*listNode)->set_weight(0);
+
+   for(listNode=list_node_ordered.begin();listNode!=list_node_ordered.end();listNode++){
+   Node_dfg * tmp = *listNode;
+    if(tmp->get_nb_arcs() == 0)
+      tmp->set_weight(tmp->get_instruction()->get_latency());
+    else {
+      list<Arc_t*>::iterator it_succ;
+      for(it_succ=tmp->arcs_begin();it_succ!=tmp->arcs_end();it_succ++)
+          (*listNode)->set_weight(max((*listNode)->get_weight(),(*it_succ)->delai+(*it_succ)->next->get_weight()));
+      }
+  }
+
 
 
 
@@ -266,7 +320,9 @@ void Dfg::comput_critical_path(){
 
 
 // A FAIRE
-int Dfg::get_critical_path(){}
+int Dfg::get_critical_path(){
+
+}
 
 
 

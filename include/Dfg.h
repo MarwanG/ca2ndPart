@@ -78,6 +78,8 @@ public:
 */	
 	void display_sheduled_instr();
 
+	list<Node_dfg*> get_inverse_topologic_order();
+
 private:
 	Basic_block *_bb;
 	list <Node_dfg*> list_node_dfg;
