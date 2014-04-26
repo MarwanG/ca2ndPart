@@ -185,8 +185,8 @@ void Function::add_BB(Node *debut, Node* fin, int index){
 
 void Function::comput_basic_block(){
    Node *debut, *current, *prev;
-   current=_head;
-   debut=_head;
+   current=_head->get_next()->get_next();
+   debut= NULL;
    prev = NULL;
    int ind=0;
    Line *l=NULL;
@@ -195,13 +195,40 @@ void Function::comput_basic_block(){
    cout<< "comput BB" <<endl;
    cout<<"head :"<<_head->get_lineContent()<<endl;
    cout<<"tail :"<<_end->get_lineContent()<<endl;
-   //boucle
-    //caste
-    cout<<"-- Bloc numero:"<<ind<<endl;
-   // cout<<"-- head :"<< debut->get_format()<<endl;
-    
-   //end
-   cout<<"end comput BB"<<endl;
+   
+   while(current != NULL && current!=_end){    
+        if (current->get_line()->isInst()){
+            if(debut == NULL){
+             debut = current;
+            } 
+            Instruction * inst = (dynamic_cast< Instruction *> (current->get_line()));
+            if(inst->is_branch()){
+                current = current->get_next();
+                cout<<"-- Bloc numero:"<<ind<<endl;
+                cout<<"-- head :"<< debut->get_lineContent()<<endl;
+                cout<<"-- end :"<<current->get_lineContent()<<endl;
+                add_BB(debut,current,ind);
+                get_BB(nbr_BB()-1)->set_branch(prev);
+                ind++;
+                debut = NULL;
+         } 
+      }        
+       else if(current->get_line()->isLabel()){
+         if(debut == NULL){
+          debut = current;
+        }else{
+          cout<<"-- Bloc numero:"<<ind<<endl;
+          cout<<"-- head :"<< debut->get_lineContent()<<endl;
+          cout<<"-- end :"<<current->get_prev() -> get_lineContent()<<endl;
+          add_BB(debut,current->get_prev(),ind);
+          ind++;
+          debut = current;
+        }
+      }
+      prev = current;
+      current = current->get_next();
+  }
+  cout<<"end comput BB"<<endl;
 }
 
 int Function::nbr_BB(){
@@ -239,7 +266,7 @@ list<Basic_block*>::iterator Function::bb_list_end(){
 
 // NB : penser  utiliser la méthode set_link_succ_pred(Basic_block *) de la classe Basic_block  
 void Function::comput_succ_pred_BB(){
-  
+   cout << "compt_succ" << endl;
    list<Basic_block*>::iterator it, it2;
    Basic_block *current;
    Instruction *instr;
@@ -250,14 +277,46 @@ void Function::comput_succ_pred_BB(){
    
    int size= (int) _myBB.size(); // nombre de BB
    it=_myBB.begin();   //1er BB
-   //remarque : le dernier block n'a pas de successeurs
- 
+  for(nbi = 0; nbi < nbr_BB(); nbi++){
+    current = get_BB(nbi);
 
-
-   //A REMPLIR
-
-
+    instr = current->get_last_instruction();
+    instr->get_content();
+   
+    if(instr->get_content()=="add $0,$0,$0"){  //ilya un jump
+      instr = instr->get_prev();
+      string label = instr->get_op1()->to_string();
+      if(instr->get_content().substr(0,3)=="jal"){
+          string label = instr->get_op1()->to_string();
+          current->set_link_succ_pred(get_BB(nbi+1));             
+      }else if(instr->get_content().at(0)=='j'){    //check if we use jr .. etc
+        string label = instr->get_op1()->to_string();
+        Basic_block * suc  = find_label_BB(new OPLabel(label));
+        if(suc != NULL)
+          current->set_link_succ_pred(suc);          
+      }else{
+        int nb = instr->get_nbOp();
+        if(nb == 2){
+          string label = instr->get_op2()->to_string();
+          Basic_block * suc  = find_label_BB(new OPLabel(label));
+          current->set_link_succ_pred(suc);           
+        }else{
+          string label = instr->get_op3()->to_string();  //egal a 3.
+          Basic_block * suc  = find_label_BB(new OPLabel(label));
+           cout << "label " << label << endl;
+          current->set_link_succ_pred(suc);          
+        }
+          current->set_link_succ_pred(get_BB(nbi+1));          
+      }
+    }else{
+       // cout << "in the else" << endl;
+        if(nbi < nbr_BB()-1){
+          current->set_link_succ_pred(get_BB(nbi+1));
+        }
+    }    
+  }
 }
+
 
 
 
