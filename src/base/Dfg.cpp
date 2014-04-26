@@ -321,7 +321,13 @@ void Dfg::comput_critical_path(){
 
 // A FAIRE
 int Dfg::get_critical_path(){
+  list<Node_dfg*>::iterator listNode;
+  comput_critical_path();
+  int criticalpath =0;
+  for(listNode=_roots.begin();listNode!=_roots.end();listNode++)
+    criticalpath = max(criticalpath,(*listNode)->get_weight());
 
+  return criticalpath;
 }
 
 
@@ -337,9 +343,9 @@ int Dfg::get_critical_path(){
 
 
 
-//
-//void  Dfg::scheduling(){
-//}
+
+void  Dfg::scheduling(){
+}
 
 void Dfg::display_sheduled_instr(){
    list <Node_dfg*>::iterator it;
