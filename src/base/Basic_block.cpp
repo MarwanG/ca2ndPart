@@ -339,6 +339,38 @@ void Basic_block::comput_pred_succ_dep(){
       }
    }
   
+   // C'EST QUE ETAIT AVANT ET STEPHANE A EFFACE.
+   // bool raw1 = false;
+   // bool raw2 = false;
+   // bool war = false;
+   // bool waw = false;
+   // Instruction *stop = this->get_first_instruction()->get_prev();
+   // while(i_current != NULL && stop != i_current){
+   //    itmp = i_current->get_prev();
+   //    while(itmp != NULL){
+   //       if(!raw1 && i_current->is_dep_RAW1(itmp)){
+   //          raw1 = true;
+   //          add_dep_link (itmp, i_current,RAW);
+   //       }
+   //       if(!raw2 && i_current->is_dep_RAW2(itmp)){
+   //          raw2 = true; 
+   //          add_dep_link (itmp, i_current,RAW);
+   //       }
+   //       if(!waw && i_current->is_dep_WAR(itmp)){
+   //          war = true;
+   //          add_dep_link (itmp, i_current,WAR);
+   //       }
+   //       if(!waw && i_current->is_dep_WAW(itmp)){
+   //          waw = true;
+   //          if (!war)
+   //             add_dep_link (itmp, i_current,WAW);
+   //       }
+   //       itmp = itmp->get_prev();
+   //       if(raw1 && raw2 && waw)
+   //          break;
+   //    }
+   // i_current = i_current->get_prev();
+   // }
 
 
 
@@ -373,7 +405,7 @@ void Basic_block::test(){
    cout << "test du BB " << get_index() << endl;
    display();
 
-   /*
+   
    cout << "nb de successeur : " << get_nb_succ() << endl;
    int nbsucc = get_nb_succ() ;
    if (nbsucc >= 1 && get_successor1())
@@ -388,6 +420,6 @@ void Basic_block::test(){
 	 cout << "pred "<< i <<  " : " << get_predecessor(i)-> get_index() << "; ";
    }
 
-   */
+   
    cout << endl;
 }
