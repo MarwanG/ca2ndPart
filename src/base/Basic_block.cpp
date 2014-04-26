@@ -307,9 +307,9 @@ void Basic_block::comput_pred_succ_dep(){
    
    Instruction *i_current=this->get_last_instruction();
    Instruction *itmp;
-  
-   /*il faut faire ce qu'il faut pour remplir les listes 
 
+
+   /*il faut faire ce qu'il faut pour remplir les listes 
    list <dep*> _succ_dep; // instructions qui dépendent de this avec type de dep
    list <dep*> _pred_dep; // instructions dont depend this avec type de dep
    de la classe Instruction pour chacune des instructions du BB
@@ -317,6 +317,60 @@ void Basic_block::comput_pred_succ_dep(){
    NB : la fonction add_dep_link ci-dessus peut vous être utile...
 
   */ 
+
+   int nb = get_nb_inst();
+   int i ;
+   int j;
+   bool test;
+
+   for(i = nb - 1 ; i >= 0 ; i-- ){
+      test = false;
+      Instruction * current =  get_instruction_at_index(i);
+      for(j = i - 1 ; j >= 0 ; j--){
+         Instruction * tmp = get_instruction_at_index(j);
+         t_Dep dep = current->is_dependant(tmp);
+         if( dep != NONE){
+            test = true;
+            add_dep_link(tmp,current,dep);
+         }
+      }
+      if(!test && (get_branch() != NULL)){
+        add_dep_link(current,(dynamic_cast<Instruction*>(get_branch()->get_line())),CONTROL);
+      }
+   }
+  
+   // C'EST QUE ETAIT AVANT ET STEPHANE A EFFACE.
+   // bool raw1 = false;
+   // bool raw2 = false;
+   // bool war = false;
+   // bool waw = false;
+   // Instruction *stop = this->get_first_instruction()->get_prev();
+   // while(i_current != NULL && stop != i_current){
+   //    itmp = i_current->get_prev();
+   //    while(itmp != NULL){
+   //       if(!raw1 && i_current->is_dep_RAW1(itmp)){
+   //          raw1 = true;
+   //          add_dep_link (itmp, i_current,RAW);
+   //       }
+   //       if(!raw2 && i_current->is_dep_RAW2(itmp)){
+   //          raw2 = true; 
+   //          add_dep_link (itmp, i_current,RAW);
+   //       }
+   //       if(!waw && i_current->is_dep_WAR(itmp)){
+   //          war = true;
+   //          add_dep_link (itmp, i_current,WAR);
+   //       }
+   //       if(!waw && i_current->is_dep_WAW(itmp)){
+   //          waw = true;
+   //          if (!war)
+   //             add_dep_link (itmp, i_current,WAW);
+   //       }
+   //       itmp = itmp->get_prev();
+   //       if(raw1 && raw2 && waw)
+   //          break;
+   //    }
+   // i_current = i_current->get_prev();
+   // }
 
 
 
@@ -351,7 +405,7 @@ void Basic_block::test(){
    cout << "test du BB " << get_index() << endl;
    display();
 
-   /*
+   
    cout << "nb de successeur : " << get_nb_succ() << endl;
    int nbsucc = get_nb_succ() ;
    if (nbsucc >= 1 && get_successor1())
@@ -366,6 +420,6 @@ void Basic_block::test(){
 	 cout << "pred "<< i <<  " : " << get_predecessor(i)-> get_index() << "; ";
    }
 
-   */
+   
    cout << endl;
 }

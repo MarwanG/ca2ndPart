@@ -40,6 +40,7 @@ public:
 	/**	\brief	Build the Dfg, 
 		when you call this method you have to affect the fisrt parameter to NULL and the 
 		second to true
+		CAN BE USED FOR THE DFG BUILDING OR NOT, UP TO YOU
 */
 	void build_dfg(Node_dfg*,bool);
 
@@ -63,17 +64,27 @@ public:
 */
 	void comput_critical_path();
 
-	void compute_nb_descendant();
+	
 	/**	\brief	order the instructions in the basic block according to an algorithm list
 */
-	void scheduling(bool);
-	void apply_scheduling();
+	void scheduling();
+
 
 /**	\brief	returns the highest weigth of nodes
 */
 	int get_critical_path();
+
+/**	\brief	display the instruction according to the new_order list
+*/	
 	void display_sheduled_instr();
 
+	list<Node_dfg*> get_inverse_topologic_order();
+
+	bool willFreeze(Node_dfg* node);
+	bool compare_freeze(Node_dfg* a, Node_dfg* b);
+	void sortList(list<Node_dfg*>* l);
+	bool isReady(Node_dfg * n);
+	bool contains(list<Node_dfg*>* l, Node_dfg* n);
 
 private:
 	Basic_block *_bb;

@@ -308,7 +308,10 @@ void  Program::comput_CFG(){
    for(int i=0; i<size; i++){ // parcours des functions du programme
       current=*it;
       
-      // A REMPLIR 
+       current -> comput_basic_block(); 
+      current -> comput_succ_pred_BB();
+      Cfg * cfg = new Cfg(current->get_BB(0),current->nbr_BB());
+      _myCFG.push_back(cfg);
 
 
       it++;
