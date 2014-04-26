@@ -307,9 +307,9 @@ void Basic_block::comput_pred_succ_dep(){
    
    Instruction *i_current=this->get_last_instruction();
    Instruction *itmp;
-  
-   /*il faut faire ce qu'il faut pour remplir les listes 
 
+
+   /*il faut faire ce qu'il faut pour remplir les listes 
    list <dep*> _succ_dep; // instructions qui dépendent de this avec type de dep
    list <dep*> _pred_dep; // instructions dont depend this avec type de dep
    de la classe Instruction pour chacune des instructions du BB
@@ -317,6 +317,28 @@ void Basic_block::comput_pred_succ_dep(){
    NB : la fonction add_dep_link ci-dessus peut vous être utile...
 
   */ 
+
+   int nb = get_nb_inst();
+   int i ;
+   int j;
+   bool test;
+
+   for(i = nb - 1 ; i >= 0 ; i-- ){
+      test = false;
+      Instruction * current =  get_instruction_at_index(i);
+      for(j = i - 1 ; j >= 0 ; j--){
+         Instruction * tmp = get_instruction_at_index(j);
+         t_Dep dep = current->is_dependant(tmp);
+         if( dep != NONE){
+            test = true;
+            add_dep_link(tmp,current,dep);
+         }
+      }
+      if(!test && (get_branch() != NULL)){
+        add_dep_link(current,(dynamic_cast<Instruction*>(get_branch()->get_line())),CONTROL);
+      }
+   }
+  
 
 
 

@@ -198,7 +198,7 @@ void Function::comput_basic_block(){
    //boucle
     //caste
     cout<<"-- Bloc numero:"<<ind<<endl;
-    cout<<"-- head :"<< debut->get_format()<<endl;
+   // cout<<"-- head :"<< debut->get_format()<<endl;
     
    //end
    cout<<"end comput BB"<<endl;
