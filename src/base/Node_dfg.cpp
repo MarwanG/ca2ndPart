@@ -52,6 +52,10 @@ int Node_dfg::nb_preds(){
    return (int) _pred.size();
 }
 
+list<Node_dfg*>* Node_dfg::get_pred(){
+  return &(_pred);
+}
+
 list<Node_dfg*>::iterator Node_dfg::pred_begin(){
    return _pred.begin();
 }

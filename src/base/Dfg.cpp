@@ -35,7 +35,6 @@ int get_delay(t_Dep dep, Instruction *from, Instruction *to){
 
 // A REMPLIR
 Dfg::Dfg(Basic_block *bb){
-   cout << "doing the dfg" << endl;
    list<Arc_t*>::iterator ita;
    list<Node_dfg*>::iterator nodel;
    list<Node_dfg*>::iterator tmp;
@@ -59,13 +58,10 @@ Dfg::Dfg(Basic_block *bb){
       list_node_dfg.push_back(nd);
    }
 
-   
-   // A COMPLETER
    nodel = list_node_dfg.begin();
    for(int i =  0 ; i < _length ; i++){
       Node_dfg * nd =  *nodel;
       Instruction * inst = nd->get_instruction();
-      inst->print_succ_dep();
       if(inst->get_nb_pred() == 0 && !inst->is_branch()) {
        _roots.push_back(nd);
       }
@@ -73,15 +69,12 @@ Dfg::Dfg(Basic_block *bb){
       _delayed_slot.push_back(*(++nodel));
       break;
       }
-      if(inst->get_nb_pred() == 0 && !inst->is_branch()) {
-         _roots.push_back(nd);
-      }
-       if(inst->succ_begin()==inst->succ_end() && branch){
-         Arc_t* arc_branch = new_arc(0,CONTROL,branch);
-         nd->add_arc(arc_branch);
-         branch->add_predecesseur(nd);
-         _nb_arc++;
-       } 
+     if(inst->succ_begin()==inst->succ_end() && branch){
+       Arc_t* arc_branch = new_arc(0,CONTROL,branch);
+       nd->add_arc(arc_branch);
+       branch->add_predecesseur(nd);
+       _nb_arc++;
+     } 
       list<dep*>::iterator it;
       it = inst->succ_begin();
       for(int j = 0 ; j < inst->get_nb_succ() ; j++){
@@ -91,7 +84,6 @@ Dfg::Dfg(Basic_block *bb){
          Node_dfg * succ = *tmp;
          succ->add_predecesseur(nd);
          int delay = get_delay((*it)->type,inst,succ->get_instruction());
-         cout << delay << endl;
          Arc_t * arc = new_arc(delay,(*it)->type,succ);
          nd->add_arc(arc);
          it++;
@@ -274,7 +266,7 @@ bool Dfg::read_test(){
 }
 
 
-bool contains(list<Node_dfg*>* l, Node_dfg* n){
+bool Dfg::contains(list<Node_dfg*>* l, Node_dfg* n){
    list<Node_dfg*>::iterator it;
    
    for(it=l->begin(); it!= l->end(); it++){
@@ -331,6 +323,45 @@ int Dfg::get_critical_path(){
 }
 
 
+bool Dfg::willFreeze(Node_dfg* node){
+  list <Node_dfg*>::iterator listNode = new_order.begin();
+  int i, n;
+  n = new_order.size();
+  for(i=0;i<n;i++){
+    if (contains(node->get_pred(),*listNode)) {
+      Instruction *pred = (*listNode)->get_instruction();
+      Instruction *succ = node->get_instruction();
+      if (get_delay(pred->is_dependant(succ),pred,succ) > n - i) {
+          return true;
+      }
+    }
+    listNode++;
+  }
+  return false;
+}
+
+bool compare_weight(Node_dfg* a, Node_dfg* b){
+  return a->get_weight() > b->get_weight();
+}
+
+bool Dfg::compare_freeze(Node_dfg* a, Node_dfg* b){
+  if(willFreeze(a))
+    return !willFreeze(b);
+  else
+    return true;
+}
+bool compare_desc(Node_dfg* a, Node_dfg* b){
+  return a->get_nb_descendant() > b->get_nb_descendant();
+}
+bool compare_pred(Node_dfg* a, Node_dfg* b){
+  return a->nb_preds() > b->nb_preds();
+}
+bool compare_latency(Node_dfg* a, Node_dfg* b){
+  return a->get_instruction()->get_latency() > b->get_instruction()->get_latency();
+}
+bool compare_index(Node_dfg* a, Node_dfg* b){
+  return a->get_instruction()->get_index() < b->get_instruction()->get_index();
+}
 
 
 
@@ -338,13 +369,67 @@ int Dfg::get_critical_path(){
 
 
 
+void Dfg::sortList(list<Node_dfg*>* l){  
+  l->sort(compare_index);
+  l->sort(compare_desc);
+  l->sort(compare_pred);
+  l->sort(compare_latency);
+  l->sort(compare_weight);
+  list<Node_dfg*>::iterator iti, itj;
+  for(iti=l->begin();iti!=l->end();iti++)
+    for(itj=iti;itj!=l->end();itj++)
+      if(willFreeze(*iti))
+   if(!willFreeze(*itj)){
+     std::swap(*iti, *itj);
+     break;
+   }
+}
 
 
-
-
+bool Dfg::isReady(Node_dfg * n){
+   list<Node_dfg*>::iterator pred;
+   pred = n->pred_begin();
+   for(int i = 0 ; i < n->nb_preds() ; i++){
+      if(!(contains(&_inst_ready,*pred)) && !contains(&new_order,*pred)){
+         return false;
+      }
+      pred++;
+   }
+   return true;
+}
 
 
 void  Dfg::scheduling(){
+  
+  list <Node_dfg*>::iterator listNode;
+  Node_dfg * NodeTmp ;
+
+
+  for(listNode=_roots.begin();listNode!=_roots.end();listNode++){
+   // if(!contains(&_inst_ready,*listNode)){
+      _inst_ready.push_back(*listNode); 
+   // }
+  }
+  while(_inst_ready.size() > 0){
+    sortList(&_inst_ready);
+    Node_dfg * tmp = _inst_ready.front();
+    _inst_ready.pop_front();
+    new_order.push_back(tmp);
+    list <Arc_t *> ::iterator listArc;
+    listArc = tmp->arcs_begin();
+    for(int i = 0 ; i < tmp->get_nb_arcs() ; i++){
+      NodeTmp = (*listArc)->next;
+      //if(isReady(NodeTmp)){
+        // _inst_ready.push_back(NodeTmp);    MON IF QUI MARCHE PAS
+      //}
+      if(!contains(&new_order,(*listArc)->next) && !contains(&_inst_ready,(*listArc)->next))
+         _inst_ready.push_back((*listArc)->next);
+      listArc++;
+    }
+    
+  }
+
+
 }
 
 void Dfg::display_sheduled_instr(){

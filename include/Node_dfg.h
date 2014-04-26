@@ -99,6 +99,8 @@ public:
 */
 	int get_tready();
 
+	list<Node_dfg*>* get_pred();
+
 
 private:
 	list <Arc_t *> _arc;

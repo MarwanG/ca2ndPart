@@ -63,8 +63,10 @@ int main(int argc, char ** argv){
   Basic_block * BB = fct -> get_BB(0);
   BB ->display();
   Dfg * dfg = new Dfg(BB);
-  //dfg->display(BB,true);
    dfg->restitute(NULL,"./tmp/graph_dfg2.dot", true);
+   cout << "temps critique : "<< dfg->get_critical_path() << endl;
+    dfg->scheduling();
+    dfg->display_sheduled_instr();
   
   return 0;
 }

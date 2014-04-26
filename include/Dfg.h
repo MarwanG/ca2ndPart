@@ -80,6 +80,12 @@ public:
 
 	list<Node_dfg*> get_inverse_topologic_order();
 
+	bool willFreeze(Node_dfg* node);
+	bool compare_freeze(Node_dfg* a, Node_dfg* b);
+	void sortList(list<Node_dfg*>* l);
+	bool isReady(Node_dfg * n);
+	bool contains(list<Node_dfg*>* l, Node_dfg* n);
+
 private:
 	Basic_block *_bb;
 	list <Node_dfg*> list_node_dfg;

@@ -303,7 +303,6 @@ void Function::comput_succ_pred_BB(){
         }else{
           string label = instr->get_op3()->to_string();  //egal a 3.
           Basic_block * suc  = find_label_BB(new OPLabel(label));
-           cout << "label " << label << endl;
           current->set_link_succ_pred(suc);          
         }
           current->set_link_succ_pred(get_BB(nbi+1));          
