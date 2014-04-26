@@ -59,7 +59,7 @@ public:
 
 /**	\brief	add an arc to the arc list
 */
-	void add_successeur(Arc_t*);
+	void add_arc(Arc_t*);
 
 	void add_predecesseur(Node_dfg*);
 	int nb_preds();
@@ -70,7 +70,7 @@ public:
 */
 	void set_instruction( Instruction* );
 
-	int compute_weight();
+	
 
 /**	\brief	set the weight
 */
@@ -80,7 +80,8 @@ public:
 */
 	int get_weight( );
 
-	int compute_nb_descendant(int nb_instr, int *deja_comptes);
+
+
 /**	\brief	set the number of descendant
  */
 	void set_nb_descendant(int);
@@ -88,18 +89,24 @@ public:
 /**	\brief	get the number of descendant
 */
 	int get_nb_descendant();
-	
+/**  
+ 	\brief	set tready to t
+*/
 	void set_tready(int t);
+
+/**  
+ 	\brief	returns tready 
+*/
 	int get_tready();
 
 
 private:
 	list <Arc_t *> _arc;
-	list <Node_dfg *> _pred;
-	Instruction * _inst;
+	list <Node_dfg *> _pred; //liste des noeuds predecesseurs
+	Instruction * _inst; // instruction correspondante
 	int _nbr_descendant; // nombre de descendants
 	int _poids;   // poids dans le chemin critique
-	int _tready;
+	int _tready;  
 	
 };
 

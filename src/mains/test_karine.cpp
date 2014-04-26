@@ -59,6 +59,12 @@ int main(int argc, char ** argv){
     Cfg * cfg = p2.get_CFG(p2.nbr_func()>2?2:0);
     cfg -> restitution(NULL,"./tmp/graph2.dot");
   }
+
+  Basic_block * BB = fct -> get_BB(0);
+  BB ->display();
+  Dfg * dfg = new Dfg(BB);
+  //dfg->display(BB,true);
+   dfg->restitute(NULL,"./tmp/graph_dfg2.dot", true);
   
   return 0;
 }
