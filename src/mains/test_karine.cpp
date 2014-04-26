@@ -33,8 +33,8 @@ int main(int argc, char ** argv){
 
   /* TEST DU CALCUL DES BB d'une fonction */
   /* Pour tester le calcul des BB d'une fonction */ 
-   Function * fct = p2.get_function(0);
-     fct -> comput_basic_block(); 
+  // Function * fct = p2.get_function(0);
+  //   fct -> comput_basic_block(); 
 
 
 
@@ -42,23 +42,23 @@ int main(int argc, char ** argv){
   /* Pour tester le calcul des blocs de bases puis du calcul des BB pred/succ des BB */ 
   
 
-  /* 
+  
 
      Function * fct = p2.get_function(0);
      fct -> comput_basic_block(); 
-     fct -> comput_succ_pred();
+     fct -> comput_succ_pred_BB();
      fct -> test(); 
 
-  */
+  
 
 
   /* TEST DE LA CONSTRUCTION DES CFG et donc des succ/pred des BB */
-  /*  if (p2.nbr_func() > 0){
+    if (p2.nbr_func() > 0){
     p2.get_function(0)->display();
     p2.comput_CFG();
     Cfg * cfg = p2.get_CFG(p2.nbr_func()>2?2:0);
     cfg -> restitution(NULL,"./tmp/graph2.dot");
   }
-  */
+  
   return 0;
 }
