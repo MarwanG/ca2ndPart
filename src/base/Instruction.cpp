@@ -509,6 +509,18 @@ bool Instruction::is_indirect_branch(){
    return ( get_opcode() == jr ||  get_opcode() == jalr);
 }
 
+
+bool Instruction::is_WR(){ 
+  return 
+    (_type==MEM && 
+     ( _op==lb || _op==lbu || _op==lh || _op==lhu || _op==lw 
+       || _op==lwl || _op==lwr || _op==ll || _op==pref)
+     ) 
+    || _op==add || op==addi || _op==addiu ; 
+}
+
+
+
 int Instruction::get_latency(){
   if (is_mem_load())
     return 2;

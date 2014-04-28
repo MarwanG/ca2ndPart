@@ -400,6 +400,56 @@ int Basic_block::nb_cycles(){
 
 
 
+void Basic_block::register_rename(list <int> liste){ 
+  /* je dois : - parcourir chaque instruction du bloc 
+     - Si on écris dans un registre qui est dans liste , 
+     on le renome partout ou on le rencontre jusqu'a ça prochaine réécriture */ 
+  int set = 31; 
+  //noms des nouveau registre 
+  Instruction *i_current = this->get_first_instruction();
+  int nb = get_nb_inst();
+  //ON parcourt toute les insctruction du bloc 
+  for(i = 0 ; i < nb ; i++ ){ 
+    i_current = get_instruction_at_index(i);
+    //Si on esfait une écriture dans un registre
+    if (i_current->is_WR) { 
+      //Si le registre qui est "écrit" faire parti de la list des registre non vivant
+      if (this->contains(i_current->get_op1() ,liste) ){ 
+	  //On stock le numéro du registre 
+	  Operand opBuff = i_current->get_op1();
+	  //On defini un nouveau registre libre 
+	  set ++; int j = i; 
+	  //On renome touts les registre juqu'a retoruver une ecriture 
+	  for(j ; j < nb ; j++ ){ 
+	    if ( j != i && i_current->is_WR) 
+	      break; 
+	    if ( i_current->get_op1() == opBuff) 
+	      i_current->set_op1(set); 
+	    if ( i_current->get_op2() == opBuff)
+	      i_current->set_op2(set);
+	    if ( i_current->get_op3() == opBuff)
+	      i_current->set_op3(set); 
+	    i_current = get_instruction_at_index(j); 
+	  } 
+	  i = j;
+      }
+    }
+  }
+}
+
+  // si le registre est dans la list 
+bool Basic_block::contains(Operand op , list <int> liste ){ 
+  list<int>::reverse_iterator iter; 
+  for (iter = liste.rbegin(); iter != liste.rend(); iter++) { 
+    if ( op == liste.(iter)) 
+      return true; 
+  } 
+  return false;
+  
+}
+
+
+
 /* permet de tester des choses sur un bloc de base, par exemple permet d'afficher les BB successeurs et prédécesseurs (commentaire),  là ne fait rien qu'afficher le BB */
 void Basic_block::test(){
    cout << "test du BB " << get_index() << endl;
